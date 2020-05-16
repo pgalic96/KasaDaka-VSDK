@@ -1,0 +1,131 @@
+{% extends "control_panel/base.html" %}
+{% block body %}
+<div class="container">
+    <div class="row pt-2">
+        <div class="col-12">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#new" role="tab" aria-controls="new" aria-selected="true">New orders</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#ongoing" role="tab" aria-controls="ongoing" aria-selected="false">Ongoing orders</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#finished" role="tab" aria-controls="finished" aria-selected="false">Finished orders</a>
+      </li>
+    </ul>
+            </div>
+    </div>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="new" role="tabpanel" aria-labelledby="new-tab">
+            <div class="row pt-4">
+                <div class="col-12">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Order ID</th>
+                      <th scope="col">Farmer ID</th>
+                      <th scope="col">Farmer Name</th>
+                      <th scope="col">Pickup Address</th>
+                      <th scope="col">Liters of milk</th>
+                      <th scope="col">Production time</th>
+                      <th scope="col">Driver Name</th>
+                      <th scope="col">Arrival time</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for order in orders.orders_new %}
+                    <tr>
+                      <th scope="row">{{ order.id }}</th>
+                      <td>{{ order.farmer.id }}</td>
+                      <td>{{ order.farmer.first_name }} {{ order.farmer.last_name }}</td>
+                      <td>{{ order.pickup_address }}</td>
+                      <td>{{ order.liters_of_milk }}</td>
+                      <td>{{ order.production_time }}</td>
+                      <td>
+                          <select>
+                              {% for driver in drivers %}
+                                <option value="driver.id">{{ driver.first_name }} {{ driver.last_name }}</option>
+                              {% endfor %}
+                          </select>
+                      </td>
+                      <td>{{ order.arrival_time }}</td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="ongoing" role="tabpanel" aria-labelledby="ongoing-tab">
+            <div class="row pt-4">
+                <div class="col-12">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Order ID</th>
+                      <th scope="col">Farmer ID</th>
+                      <th scope="col">Farmer Name</th>
+                      <th scope="col">Pickup Address</th>
+                      <th scope="col">Liters of milk</th>
+                      <th scope="col">Production time</th>
+                      <th scope="col">Driver Name</th>
+                      <th scope="col">Mark as finished</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for order in orders.orders_in_progress %}
+                    <tr>
+                      <th scope="row">{{ order.id }}</th>
+                      <td>{{ order.farmer.id }}</td>
+                      <td>{{ order.farmer.first_name }} {{ order.farmer.last_name }}</td>
+                      <td>{{ order.pickup_address }}</td>
+                      <td>{{ order.liters_of_milk }}</td>
+                      <td>{{ order.production_time }}</td>
+                      <td>{{ order.driver.first_name }} {{ order.driver.last_name }}</td>
+                      <td><input type="checkbox" id="order.id" name="order.id" value="1"></td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="finished" role="tabpanel" aria-labelledby="finished-tab">
+            <div class="row pt-4">
+                <div class="col-12">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Order ID</th>
+                      <th scope="col">Farmer ID</th>
+                      <th scope="col">Farmer Name</th>
+                      <th scope="col">Pickup Address</th>
+                      <th scope="col">Liters of milk</th>
+                      <th scope="col">Production time</th>
+                      <th scope="col">Driver Name</th>
+                      <th scope="col">Arrival time</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for order in orders.orders_done %}
+                    <tr>
+                      <th scope="row">{{ order.id }}</th>
+                      <td>{{ order.farmer.id }}</td>
+                      <td>{{ order.farmer.first_name }} {{ order.farmer.last_name }}</td>
+                      <td>{{ order.pickup_address }}</td>
+                      <td>{{ order.liters_of_milk }}</td>
+                      <td>{{ order.production_time }}</td>
+                      <td>{{ order.driver.first_name }} {{ order.driver.last_name }}</td>
+                      <td>{{ order.arrival_time }}</td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

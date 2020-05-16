@@ -1,0 +1,76 @@
+{% extends "control_panel/base.html" %}
+{% block body %}
+    <div class="row pt-4">
+        <div class="col-4 offset-1">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Farmer ID</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Address</th>
+                  <th scope="col">Phone number</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for farmer in farmers %}
+                <tr>
+                  <td>{{ farmer.id }}</td>
+                  <td>{{ farmer.first_name }} {{ farmer.last_name }}</td>
+                  <td>{{ farmer.address }}</td>
+                  <td>{{ farmer.phone_number }}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+        </div>
+        <div class="col-4 offset-2">
+            <h2>Register new farmer</h2>
+            <form class="pt-2" method="post" action="{% url "control_panel:farmers" %}">
+              {% csrf_token %}
+              <div class="form-group row">
+                <label for="first_name" class="col-sm-2 col-form-label">First name</label>
+                <div class="col-sm-4">
+                  <input name="first_name" id="first_name" type="text" class="form-control">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="last_name" class="col-sm-2 col-form-label">Last name</label>
+                <div class="col-sm-4">
+                  <input name="last_name" id="last_name" type="text" class="form-control">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="first_name" class="col-sm-2 col-form-label">Street</label>
+                <div class="col-sm-4">
+                  <input name="street" id="street" type="text" class="form-control" >
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="first_name" class="col-sm-2 col-form-label">House number</label>
+                <div class="col-sm-4">
+                  <input name="house_no" id="house_no" type="text" class="form-control">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="house_suffix" class="col-sm-2 col-form-label">House suffix</label>
+                <div class="col-sm-4">
+                  <input name="house_suffix" id="house_suffix" type="text" class="form-control" >
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="zipcode" class="col-sm-2 col-form-label">Zipcode</label>
+                <div class="col-sm-4">
+                  <input name="zipcode" id="zipcode" type="text" class="form-control">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="phone_number" class="col-sm-2 col-form-label">Phone number</label>
+                <div class="col-sm-4">
+                  <input name="phone_number" id="first_name" type="number" class="form-control">
+                </div>
+              </div>
+              <button class="btn btn-success" type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

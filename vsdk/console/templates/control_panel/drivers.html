@@ -1,0 +1,54 @@
+{% extends "control_panel/base.html" %}
+{% block body %}
+    <div class="row py-4">
+        <div class="col-4 offset-1">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">First Name</th>
+                  <th scope="col">Last Name</th>
+                  <th scope="col">Phone number</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for driver in drivers %}
+                <tr>
+                  <td>{{ driver.id }}</td>
+                  <td>{{ driver.first_name }} </td>
+                  <td>{{ driver.last_name }}</td>
+                  <td>{{ driver.phone_number }}</td>
+                  <td><button class="btn btn-warning" onclick="deleteDriver({{ driver.id }})">Delete driver</button></td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+        </div>
+        <div class="col-4 offset-2">
+            <h2>Register new driver</h2>
+            <form class="pt-2"  method="post" action="{% url "control_panel:drivers" %}">
+              {% csrf_token %}
+              <div class="form-group row">
+                <label for="first_name" class="col-sm-2 col-form-label">First name</label>
+                <div class="col-sm-4">
+                  <input name="first_name" id="first_name" type="text" class="form-control">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="last_name" class="col-sm-2 col-form-label">Last name</label>
+                <div class="col-sm-4">
+                  <input name="last_name" id="last_name" type="text" class="form-control">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="phone_number" class="col-sm-2 col-form-label">Phone number</label>
+                <div class="col-sm-4">
+                  <input name="phone_number" id="first_name" type="number" class="form-control">
+                </div>
+              </div>
+              <button class="btn btn-success" type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
