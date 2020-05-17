@@ -46,11 +46,14 @@ def post(request, session_id):
     order = Order.objects.get(pk=session_id)
 
     if save_option == 'farmer_id':
-        farmer = Farmer.objects.get(pk=key_input)
-        order.update(farmer=farmer)
+        farmer = Farmer.objects.get(pk=int(key_input))
+        order.farmer = farmer
+        order.save()
     elif save_option == 'liters':
-        order.update(liters_of_milk=key_input, production_time=datetime.datetime.now())
-
+        order.liters_of_milk = int(key_input)
+        order.production_time = datetime.datetime.now()
+        order.save()
+        
     session.record_step(None, "Value input, %s" % key_input)
 
 
