@@ -6,6 +6,7 @@ from vsdk.service_development.models import VoiceLabel
 from .vs_element import VoiceServiceElement
 from .user_input import UserInputCategory
 
+
 class Record(VoiceServiceElement):
     """
         An element that records user input to a sound file.

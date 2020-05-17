@@ -7,13 +7,13 @@ from vsdk.console.models import *
 
 from . import base
 
+
 def get_caller_id_from_GET_request(request):
     if 'caller_id' in request.GET:
         return request.GET['caller_id']
     elif 'callerid' in request.GET:
         return request.GET['callerid']
     return None
-
 
 
 def voice_service_start(request, voice_service_id, session_id = None):

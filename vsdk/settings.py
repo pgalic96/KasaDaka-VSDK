@@ -31,9 +31,9 @@ SECRET_KEY = 'tk2(l(00&kfe7j97j$dvgz&b6r!kk_zbse1(9w*eoc$bcwu773'
 ##########
 #Use True on your local PC, False on Heroku!!
 ########
-#DEBUG = True
+DEBUG = True
 
-DEBUG = False
+# DEBUG = False
 
 
 ALLOWED_HOSTS = ['*']
@@ -138,6 +138,7 @@ STATIC_ROOT = os.path.join(SITE_ROOT, 'static')
 STATICFILES_DIRS = (
 #  os.path.join(SITE_ROOT, 'static/'),
   os.path.join(SITE_ROOT, 'uploads/'),
+  '/console/static/'
 )
 
 MEDIA_ROOT = os.path.join(SITE_ROOT, 'uploads')
@@ -151,10 +152,15 @@ MEDIA_URL = '/uploads/'
 
 
 try:
-    SFTP_PASS =  os.environ['SFTP_PASS']
-    SFTP_USER = os.environ['SFTP_USER']
-    HEROKU =os.environ['HEROKU'] 
-    SFTP_HOST = os.environ['SFTP_HOST']
+    SFTP_PASS = '`F$vr!P6"Ek?8_LF'
+    # SFTP_PASS =  os.environ['SFTP_PASS']
+    SFTP_USER = 'group7'
+
+    # SFTP_USER = os.environ['SFTP_USER']
+    HEROKU =os.environ['HEROKU']
+    SFTP_HOST = 'ict4d.saadittoh.com'
+
+    # SFTP_HOST = os.environ['SFTP_HOST']
     SFTP_PORT = os.environ['SFTP_PORT']
 
 except KeyError:
