@@ -6,6 +6,8 @@ from datetime import datetime
 from ..models import *
 from vsdk.console.models import *
 
+def key_input_get_fail_redirect_url(key_input_element, session):
+    return key_input_element.redirect_fail.get_absolute_url(session)
 
 def key_input_get_redirect_url(key_input_element, session):
     return key_input_element.redirect.get_absolute_url(session)
@@ -15,6 +17,8 @@ def key_input_generate_context(key_input_element, session, element_id):
     language = session.language
     key_input_voice_fragment_url = key_input_element.get_voice_fragment_url(language)
     redirect_url = key_input_get_redirect_url(key_input_element, session)
+    redirect_fail_url = key_input_get_fail_redirect_url(key_input_element, session)
+
     save_option = getattr(key_input_element, 'save_option')
 
     # This is the redirect URL to POST the language selected
@@ -23,7 +27,8 @@ def key_input_generate_context(key_input_element, session, element_id):
     # This is the redirect URL for *AFTER* the language selection process
     pass_on_variables = {
         'redirect_url': redirect_url,
-        'save_option': save_option
+        'save_option': save_option,
+        'redirect_fail_url': redirect_fail_url,
     }
 
     context = {
@@ -42,11 +47,15 @@ def post(request, session_id):
     session = get_object_or_404(CallSession, pk=session_id)
     key_input = request.POST['key_input_value']
     save_option = request.POST['save_option']
+    redirect_fail = request.POST['redirect_fail_url']
 
     order = Order.objects.get(pk=session_id)
 
     if save_option == 'farmer_id':
-        farmer = Farmer.objects.get(pk=int(key_input))
+        try:
+            farmer = Farmer.objects.get(pk=int(key_input))
+        except Farmer.DoesNotExist:
+            return HttpResponseRedirect(redirect_fail)
         order.farmer = farmer
         order.save()
     elif save_option == 'liters':

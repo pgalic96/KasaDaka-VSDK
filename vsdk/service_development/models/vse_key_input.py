@@ -18,6 +18,14 @@ class KeyInput(VoiceServiceElement):
             verbose_name=_('Redirect element'),
             help_text = _("The element to redirect to after the key_input has been played."))
     save_option = models.CharField(_('Save to'), max_length = 100, blank = True)
+    _redirect_fail = models.ForeignKey(
+        VoiceServiceElement,
+        on_delete = models.SET_NULL,
+        null = True,
+        blank = True,
+        related_name='%(app_label)s_%(class)s_related_fail',
+        verbose_name=_('Redirect fail element'),
+        help_text = _("The element to redirect to after a failed input"))
 
     class Meta:
         verbose_name = _('Key input Element')
@@ -30,6 +38,13 @@ class KeyInput(VoiceServiceElement):
         not have specific fields and methods).
         """
         if self._redirect :
+            return VoiceServiceElement.objects.get_subclass(id = self._redirect.id)
+        else:
+            return None
+
+    @property
+    def redirect_fail(self):
+        if self._redirect_fail:
             return VoiceServiceElement.objects.get_subclass(id = self._redirect.id)
         else:
             return None
