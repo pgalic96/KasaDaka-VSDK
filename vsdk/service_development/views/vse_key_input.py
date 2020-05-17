@@ -1,8 +1,10 @@
 
 from django.shortcuts import render, get_object_or_404, get_list_or_404, redirect
 from django.http.response import HttpResponseRedirect
+from datetime import datetime
 
 from ..models import *
+from vsdk.console.models import *
 
 
 def key_input_get_redirect_url(key_input_element, session):
@@ -41,7 +43,13 @@ def post(request, session_id):
     key_input = request.POST['key_input_value']
     save_option = request.POST['save_option']
 
-    print(key_input)
+    order = Order.objects.get(pk=session_id)
+
+    if save_option == 'farmer_id':
+        farmer = Farmer.objects.get(pk=key_input)
+        order.update(farmer=farmer)
+    elif save_option == 'liters':
+        order.update(liters_of_milk=key_input, production_time=datetime.datetime.now())
 
     session.record_step(None, "Value input, %s" % key_input)
 
