@@ -45,7 +45,7 @@ class KeyInput(VoiceServiceElement):
     @property
     def redirect_fail(self):
         if self._redirect_fail:
-            return VoiceServiceElement.objects.get_subclass(id = self._redirect.id)
+            return VoiceServiceElement.objects.get_subclass(id = self._redirect_fail.id)
         else:
             return None
 
