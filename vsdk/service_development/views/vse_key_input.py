@@ -41,8 +41,7 @@ def post(request, session_id):
     key_input = request.POST['key_input_value']
     save_option = request.POST['save_option']
 
-    advertisement = Advertisement.objects.filter(seed=session.advertisement.seed, farmer=session.advertisement.farmer)
-    advertisement.update(**{save_option: key_input})
+    print(key_input)
 
     session.record_step(None, "Value input, %s" % key_input)
 
