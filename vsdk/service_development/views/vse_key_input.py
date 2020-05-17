@@ -55,7 +55,7 @@ def post(request, session_id):
         try:
             farmer = Farmer.objects.get(pk=int(key_input))
         except Farmer.DoesNotExist:
-            return HttpResponseRedirect(redirect_fail)
+            return False
         order.farmer = farmer
         order.save()
     elif save_option == 'liters':
@@ -64,6 +64,7 @@ def post(request, session_id):
         order.save()
 
     session.record_step(None, "Value input, %s" % key_input)
+    return True
 
 
 def key_input(request, element_id, session_id):
@@ -76,9 +77,13 @@ def key_input(request, element_id, session_id):
         if 'save_option' not in request.POST:
             raise ValueError('No save_option was given')
 
-        post(request, session_id)
+        redirect_fail_url = request.POST['redirect_fail_url']
 
-        return HttpResponseRedirect(redirect_url)
+        value = post(request, session_id)
+        if value is False:
+            return HttpResponseRedirect(redirect_fail_url)
+        else:
+            return HttpResponseRedirect(redirect_url)
 
     elif request.method == "GET":
         key_input_element = get_object_or_404(KeyInput, pk=element_id)
