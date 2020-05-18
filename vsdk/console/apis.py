@@ -1,13 +1,11 @@
 import json
 from datetime import datetime
 from functools import wraps
-from json import dumps
 
 from django.http import JsonResponse, HttpResponse, HttpResponseBadRequest
 from django.views.generic.base import ContextMixin, View
 
-from vsdk.console.models import Order, Farmer, Driver
-from vsdk.service_development.models import SpokenUserInput
+from vsdk.console.models import Order, Driver
 
 from .utils import process_orders, process_drivers
 

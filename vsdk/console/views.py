@@ -1,12 +1,10 @@
 # Create your views here.
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
-import ftplib
 from .forms import DriverForm, FarmerForm
 from .models import Order, Driver, Farmer
 from .utils import process_orders, process_drivers
-from django.conf import settings
 
 
 class OrdersView(TemplateView):
@@ -17,9 +15,6 @@ class OrdersView(TemplateView):
         orders = Order.objects.all().order_by('production_time')
         context['orders'] = process_orders(orders)
         context['drivers'] = process_drivers(Driver.objects.all(), orders)
-        # ftp = ftplib.FTP(host='ict4d.saadittoh.com', user='group7',
-        #                  passwd='`F$vr!P6"Ek?8_LF')
-        # context['files'] = ftp.nlst('uploads/')
         return context
 
 
@@ -57,10 +52,6 @@ class FarmerView(FormView):
                 f'{farmer.house_nr_extension}, {farmer.zipcode}'
 
         context['farmers'] = farmers
-
-        # ftp = ftplib.FTP(host='ict4d.saadittoh.com', user='group7',
-        #                  passwd='`F$vr!P6"Ek?8_LF')
-        # context['files'] = ftp.nlst('uploads/')
 
         return context
 
