@@ -47,8 +47,8 @@ class Farmer(models.Model):
 class Order(models.Model):
     farmer = models.ForeignKey(Farmer, on_delete=models.SET_NULL, null=True)
     driver = models.ForeignKey(Driver, on_delete=models.SET_NULL, null=True, blank=True)
-    liters_of_milk = models.IntegerField()
-    production_time = models.DateTimeField()
+    liters_of_milk = models.IntegerField(null=True)
+    production_time = models.DateTimeField(null=True)
     arrival_time = models.DateTimeField(null=True, blank=True)
     valid = models.BooleanField(default=False)
 
