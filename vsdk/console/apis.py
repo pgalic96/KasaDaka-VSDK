@@ -64,11 +64,9 @@ class APISaveOngoingOrdersEndpoint(View, ContextMixin):
             driver_db = Driver.objects.filter(id=int(driver_id)).first()
             db_order = Order.objects.filter(id=int(order_id)).first()
             db_order.driver = driver_db
-            db_order.production_time = datetime.now()
             db_order.save()
 
         return HttpResponse()
-
 
 
 class APISaveFinishedOrdersEndpoint(View, ContextMixin):
@@ -87,6 +85,7 @@ class APISaveFinishedOrdersEndpoint(View, ContextMixin):
             db_order.save()
 
         return HttpResponse()
+
 
 class APIDeleteDriverEndpoint(View, ContextMixin):
     @ajax_request
