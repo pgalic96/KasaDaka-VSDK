@@ -20,13 +20,8 @@ def process_orders(orders):
     }
 
 
-def process_drivers(drivers, orders):
+def process_drivers(drivers):
     available_drivers = []
     for driver in drivers:
-        found = False
-        for order in orders:
-            if driver == order.driver:
-                found = True
-        if not found:
-            available_drivers.append(driver.to_dict())
+        available_drivers.append(driver.to_dict())
     return available_drivers

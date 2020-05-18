@@ -14,7 +14,8 @@ class OrdersView(TemplateView):
         context = super().get_context_data(**kwargs)
         orders = Order.objects.all().order_by('production_time')
         context['orders'] = process_orders(orders)
-        context['drivers'] = process_drivers(Driver.objects.all(), orders)
+        drivers = Driver.objects.all()
+        context['drivers'] = process_drivers(drivers)
         return context
 
 
