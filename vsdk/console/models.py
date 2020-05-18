@@ -53,10 +53,8 @@ class Order(models.Model):
     valid = models.BooleanField(default=False)
 
     def to_dict(self):
-        farmer = self.farmer.to_dict()
-        driver = None
-        if self.driver:
-            driver = self.driver.to_dict()
+        farmer = self.farmer.to_dict() if self.farmer else None
+        driver = self.driver.to_dict() if self.driver else None
 
         return {
             'id': self.id,
