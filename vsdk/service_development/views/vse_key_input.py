@@ -61,6 +61,7 @@ def post(request, session_id):
     elif save_option == 'liters':
         order.liters_of_milk = int(key_input)
         order.production_time = datetime.now()
+        order.valid = True
         order.save()
 
     session.record_step(None, "Value input, %s" % key_input)

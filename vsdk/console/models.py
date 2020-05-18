@@ -50,6 +50,7 @@ class Order(models.Model):
     liters_of_milk = models.IntegerField()
     production_time = models.DateTimeField()
     arrival_time = models.DateTimeField(null=True, blank=True)
+    valid = models.BooleanField(default=False)
 
     def to_dict(self):
         farmer = self.farmer.to_dict()
@@ -63,5 +64,6 @@ class Order(models.Model):
             'driver': driver,
             'liters_of_milk': self.liters_of_milk,
             'production_time': datetime.strftime(self.production_time, '%Y-%m-%d %H:%m:%S') if self.production_time else '',
-            'arrival_time': datetime.strftime(self.arrival_time, '%Y-%m-%d %H:%m:%S') if self.arrival_time else ''
+            'arrival_time': datetime.strftime(self.arrival_time, '%Y-%m-%d %H:%m:%S') if self.arrival_time else '',
+            'valid': self.valid
         }
