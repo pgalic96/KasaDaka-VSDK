@@ -4,7 +4,7 @@ def process_orders(orders):
     orders_done = []
     for order in orders:
         order.pickup_address = f'{order.farmer.street} {order.farmer.house_nr} ' \
-            f'{order.farmer.house_nr_extension}, {order.farmer.zipcode}'
+            f'{order.farmer.house_nr_extension}, {order.farmer.zipcode}' if order.farmer else ''
 
         if order.arrival_time is None and order.driver is None:
             orders_new.append(order.to_dict())
